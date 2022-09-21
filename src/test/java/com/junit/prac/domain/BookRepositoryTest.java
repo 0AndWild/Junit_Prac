@@ -1,13 +1,15 @@
 package com.junit.prac.domain;
 
 import com.junit.prac.repository.BookRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,6 +36,7 @@ public class BookRepositoryTest {
 
     //1. 책 등록
     @Test
+    @Order(1)
     public void 책등록_Test(){
         //given (데이터 준비)
         String title = "Junit5";
@@ -53,6 +56,7 @@ public class BookRepositoryTest {
     }//트랜잭션 종료 (저장된 데이터를 초기화함)
 
     @Test
+    @Order(2)
     //2. 책 목록보기
     public void 책목록보기_test(){
         // given
@@ -70,7 +74,9 @@ public class BookRepositoryTest {
     }//트랜잭션 종료 (저장된 데이터를 초기화함)
 
     //3. 책 한건 보기
+    @Sql("classpath:db/tableInit.sql") //Id 값을 조회하는 곳에는 table을 drop해주는 설정을 걸어두는게 좋음
     @Test
+    @Order(3)
     public void 책한건보기_test(){
         //given
         String title = "Junit5";
@@ -83,8 +89,18 @@ public class BookRepositoryTest {
         assertEquals(title,bookPS.getTitle());
         assertEquals(author,bookPS.getAuthor());
     }
-    //4. 책 수정
-
-    //5. 책 삭제
+    //4. 책 삭제
+    @Sql("classpath:db/tableInit.sql")
+    @Test
+    @Order(4)
+    public void 책삭제_test(){
+        //given
+        Long id = 1L;
+        //then
+        bookRepository.deleteById(id);
+        //when
+        assertFalse(bookRepository.findById(id).isPresent()); //False이면 성공(=데이터를 삭제했으니 존재하지않음 , isPresent() ==false)
+    }
+    //5. 책 수정
 
 }
