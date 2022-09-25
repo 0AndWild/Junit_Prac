@@ -14,9 +14,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest //DB와 관련된 컴포넌트만 메모리에 로딩
-public class BookRepositoryTest {
+class BookRepositoryTest {
 
-    @Autowired // DI
+   @Autowired
     private BookRepository bookRepository;
     //@BeforeAll //테스트 시작전에 한번만 실행
     @BeforeEach //각 테스트 시작전에 한번씩 실행
@@ -37,7 +37,7 @@ public class BookRepositoryTest {
     //1. 책 등록
     @Test
     @Order(1)
-    public void 책등록_Test(){
+    void 책등록_Test(){
         //given (데이터 준비)
         String title = "Junit5";
         String author = "건영";
@@ -58,7 +58,7 @@ public class BookRepositoryTest {
     @Test
     @Order(2)
     //2. 책 목록보기
-    public void 책목록보기_test(){
+    void 책목록보기_test(){
         // given
         String title = "Junit5";
         String author = "건영";
@@ -77,7 +77,7 @@ public class BookRepositoryTest {
     @Sql("classpath:db/tableInit.sql") //Id 값을 조회하는 곳에는 table을 drop해주는 설정을 걸어두는게 좋음
     @Test
     @Order(3)
-    public void 책한건보기_test(){
+    void 책한건보기_test(){
         //given
         String title = "Junit5";
         String author = "건영";
@@ -93,7 +93,7 @@ public class BookRepositoryTest {
     @Sql("classpath:db/tableInit.sql")
     @Test
     @Order(4)
-    public void 책삭제_test(){
+    void 책삭제_test(){
         //given
         Long id = 1L;
         //then
@@ -104,7 +104,7 @@ public class BookRepositoryTest {
     //5. 책 수정
     @Sql("classpath:db/tableInit.sql")
     @Test
-    public void 책수정_test(){
+    void 책수정_test(){
         //given
         Long id = 1L;
         String title = "Junit5";
