@@ -1,5 +1,6 @@
 package com.junit.prac.service;
 
+import com.junit.prac.domain.Book;
 import com.junit.prac.dto.BookRespDto;
 import com.junit.prac.dto.BookSaveReqDto;
 import com.junit.prac.repository.BookRepository;
@@ -10,6 +11,10 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Arrays;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,6 +49,26 @@ public class BookServiceTest {
         /*AssertJ*/
         assertThat(dto.getTitle()).isEqualTo(bookRespDto.getTitle());
         assertThat(dto.getAuthor()).isEqualTo(bookRespDto.getAuthor());
+    }
+
+    @Test
+    public void 책목록보기_테스트(){
+        //given
+
+        //stub
+        List<Book> books = Arrays.asList(
+                new Book(1L,"Junit5","건영"),
+                new Book(2L, "Spring","java")
+        );
+        when(bookRepository.findAll()).thenReturn(books);
+        //when
+        List<BookRespDto> dtos = bookService.findAll();
+
+        //then
+        assertThat(dtos.get(0).getTitle()).isEqualTo("Junit5");
+        assertThat(dtos.get(0).getAuthor()).isEqualTo("건영");
+        assertThat(dtos.get(1).getTitle()).isEqualTo("Spring");
+        assertThat(dtos.get(1).getAuthor()).isEqualTo("java");
     }
 
 

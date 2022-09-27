@@ -1,6 +1,7 @@
 package com.junit.prac.domain;
 
 
+import com.junit.prac.dto.BookRespDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,5 +32,12 @@ public class Book {
         this.author = author;
     }
 
+    public BookRespDto toDto(){
+        return BookRespDto.builder()
+                .id(id)
+                .title(title)
+                .author(author)
+                .build();
+    }
 
 }
