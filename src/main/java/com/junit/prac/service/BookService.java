@@ -56,15 +56,18 @@ public class BookService {
     public void deleteBook(Long id){
         bookRepository.deleteById(id);
     }
+
     //5.책 수정
     @Transactional(rollbackOn = RuntimeException.class)
-    public void updateBook(Long id,BookSaveReqDto dto){
+    public BookRespDto updateBook(Long id,BookSaveReqDto dto){
         Optional<Book> bookOP = bookRepository.findById(id);
         if (bookOP.isPresent()){
             Book bookPs = bookOP.get();
             bookPs.update(dto.getTitle(),dto.getAuthor());
+            return bookPs.toDto();
         } else {
             throw new RuntimeException("해당 아이디를 찾을 수 없습니다.");
         }
-    }//메서드 종료시 더티체킹(flush)으로 update 됨.
+
+    } //메서드 종료시 더티체킹(flush)으로 update 됨.
 }
