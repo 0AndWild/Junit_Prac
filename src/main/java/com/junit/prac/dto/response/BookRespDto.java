@@ -1,4 +1,4 @@
-package com.junit.prac.dto;
+package com.junit.prac.dto.response;
 
 import com.junit.prac.domain.Book;
 import lombok.Builder;

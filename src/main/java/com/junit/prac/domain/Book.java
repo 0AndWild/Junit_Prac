@@ -1,7 +1,7 @@
 package com.junit.prac.domain;
 
 
-import com.junit.prac.dto.BookRespDto;
+import com.junit.prac.dto.response.BookRespDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

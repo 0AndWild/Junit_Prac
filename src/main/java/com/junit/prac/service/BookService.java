@@ -1,12 +1,11 @@
 package com.junit.prac.service;
 
 import com.junit.prac.domain.Book;
-import com.junit.prac.dto.BookRespDto;
-import com.junit.prac.dto.BookSaveReqDto;
+import com.junit.prac.dto.response.BookRespDto;
+import com.junit.prac.dto.request.BookSaveReqDto;
 import com.junit.prac.repository.BookRepository;
 import com.junit.prac.util.MailSender;
 import lombok.RequiredArgsConstructor;
-import net.bytebuddy.description.NamedElement;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
