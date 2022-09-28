@@ -1,6 +1,7 @@
 package com.junit.prac.service;
 
 import com.junit.prac.domain.Book;
+import com.junit.prac.dto.response.BookListResDto;
 import com.junit.prac.dto.response.BookRespDto;
 import com.junit.prac.dto.request.BookSaveReqDto;
 import com.junit.prac.repository.BookRepository;
@@ -33,11 +34,15 @@ public class BookService {
        return bookPs.toDto();
     }
     //2.책 목록보기
-    public List<BookRespDto> findAll(){
-        return bookRepository.findAll().stream()
+    public BookListResDto findAll(){
+        List<BookRespDto> dtos =  bookRepository.findAll().stream()
 //                .map(bookPs->new BookRespDto().toDto(bookPs))
                 .map(Book::toDto)
                 .collect(Collectors.toList());
+
+        BookListResDto bookListResDto = BookListResDto.builder().bookList(dtos).build();
+
+        return bookListResDto;
     }
 
     //3.책 한 건 보기

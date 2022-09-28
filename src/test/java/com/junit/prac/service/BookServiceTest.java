@@ -1,6 +1,7 @@
 package com.junit.prac.service;
 
 import com.junit.prac.domain.Book;
+import com.junit.prac.dto.response.BookListResDto;
 import com.junit.prac.dto.response.BookRespDto;
 import com.junit.prac.dto.request.BookSaveReqDto;
 import com.junit.prac.repository.BookRepository;
@@ -63,13 +64,13 @@ public class BookServiceTest {
         );
         when(bookRepository.findAll()).thenReturn(books);
         //when
-        List<BookRespDto> dtos = bookService.findAll();
+        BookListResDto bookListResDto = bookService.findAll();
 
         //then
-        assertThat(dtos.get(0).getTitle()).isEqualTo("Junit5");
-        assertThat(dtos.get(0).getAuthor()).isEqualTo("건영");
-        assertThat(dtos.get(1).getTitle()).isEqualTo("Spring");
-        assertThat(dtos.get(1).getAuthor()).isEqualTo("java");
+        assertThat(bookListResDto.getItems().get(0).getTitle()).isEqualTo("Junit5");
+        assertThat(bookListResDto.getItems().get(0).getAuthor()).isEqualTo("건영");
+        assertThat(bookListResDto.getItems().get(1).getTitle()).isEqualTo("Spring");
+        assertThat(bookListResDto.getItems().get(1).getAuthor()).isEqualTo("java");
     }
 
     @Test
